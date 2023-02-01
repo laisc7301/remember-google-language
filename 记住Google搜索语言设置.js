@@ -12,6 +12,7 @@
 // @grant        GM_addStyle
 // @run-at       document-start
 // @homepage     https://laisc7301.blogspot.com/
+// @license      Apache License 2.0
 // ==/UserScript==
 
 (function() {
