@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      0.1
+// @version      1.0
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
