@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      2.0
+// @version      2.1
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -63,52 +63,54 @@
 
 
             if(url2 != null){
-                setTimeout(function() {
+                var waitload = setInterval(function() {
                     var myobj = unsafeWindow.document.getElementById("tn_1");
                     var myhtml = myobj.innerHTML;
-                    var myhtml02 = myhtml;
-                    var regex01 = /href="\/search\?.*?">/g;
-                    var myhtml2 = myhtml.match(regex01);
-                    for (var myurlsub in myhtml2)
-                    {
-                        var myurl01 = myhtml2[myurlsub];
-                        var regex02 = /lr=.*?&|lr=\S{0,}(?<!&)$/;
-                        var myurltest = myurl01.match(regex02);
-                        if (myurltest == null){
-                            if(myurl01.match(regex03)!=null){
-                                var regex03 = /" /;
-                                var myurl03 = myurl01.replace(regex03, "&lr=\" ");
-                                myhtml02 = myhtml02.replace(myurl01,myurl03);
-                            }else{
-                                var regex04 = /">$/;
-                                var myurl04 = myurl01.replace(regex04, "&lr=\">");
-                                myhtml02 = myhtml02.replace(myurl01,myurl04);
+                    if(myhtml != ""){
+                        var myhtml02 = myhtml;
+                        var regex01 = /href="\/search\?.*?">/g;
+                        var myhtml2 = myhtml.match(regex01);
+                        for (var myurlsub in myhtml2)
+                        {
+                            var myurl01 = myhtml2[myurlsub];
+                            var regex02 = /lr=.*?&|lr=\S{0,}(?<!&)$/;
+                            var myurltest = myurl01.match(regex02);
+                            if (myurltest == null){
+                                if(myurl01.match(regex03)!=null){
+                                    var regex03 = /" /;
+                                    var myurl03 = myurl01.replace(regex03, "&lr=\" ");
+                                    myhtml02 = myhtml02.replace(myurl01,myurl03);
+                                }else{
+                                    var regex04 = /">$/;
+                                    var myurl04 = myurl01.replace(regex04, "&lr=\">");
+                                    myhtml02 = myhtml02.replace(myurl01,myurl04);
+                                }
                             }
+
                         }
+                        myobj.innerHTML = myhtml02;
 
+
+
+                        var resetLanguage = document.createElement('a');
+                        resetLanguage.href = "#";
+                        resetLanguage.innerHTML = '重置语言';
+                        resetLanguage.className = "resetLanguage";
+                        resetLanguage.id="resetLanguage";
+                        resetLanguage.addEventListener('click', function() {
+                            GM_deleteValue("googleLanguage");
+                            var myurl = unsafeWindow.location.href;
+                            var regex2 = /&lr=.*?&$|lr=.*?&|&lr=\S{0,}(?<!&)$/;
+                            var myurl2 = myurl.replace(regex2, "");
+                            unsafeWindow.location.href = myurl2;
+
+                        });
+
+                        myobj.appendChild(resetLanguage);
+                        clearInterval(waitload);
                     }
-                    myobj.innerHTML = myhtml02;
 
-
-
-                    var resetLanguage = document.createElement('a');
-                    resetLanguage.href = "#";
-                    resetLanguage.innerHTML = '重置语言';
-                    resetLanguage.className = "resetLanguage";
-                    resetLanguage.id="resetLanguage";
-                    resetLanguage.addEventListener('click', function() {
-                        GM_deleteValue("googleLanguage");
-                        var myurl = unsafeWindow.location.href;
-                        var regex2 = /&lr=.*?&$|lr=.*?&|&lr=\S{0,}(?<!&)$/;
-                        var myurl2 = myurl.replace(regex2, "");
-                        unsafeWindow.location.href = myurl2;
-
-                    });
-
-                    myobj.appendChild(resetLanguage);
-
-
-                }, 500);
+                }, 100);
             }
         }
     }
