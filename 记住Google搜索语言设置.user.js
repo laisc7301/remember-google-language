@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      1.3
+// @version      1.4
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -73,10 +73,17 @@
                         var regex02 = /lr=.*?&|lr=\S{0,}(?<!&)$/;
                         var myurltest = myurl01.match(regex02);
                         if (myurltest == null){
-                            var regex03 = /">$/;
-                            var myurl03 = myurl01.replace(regex03, "&lr=\">");
-                            myhtml02 = myhtml02.replace(myurl01,myurl03);
+                            if(myurl01.match(regex03)!=null){
+                                var regex03 = /" /;
+                                var myurl03 = myurl01.replace(regex03, "&lr=\" ");
+                                myhtml02 = myhtml02.replace(myurl01,myurl03);
+                            }else{
+                                var regex04 = /">$/;
+                                var myurl04 = myurl01.replace(regex04, "&lr=\">");
+                                myhtml02 = myhtml02.replace(myurl01,myurl04);
+                            }
                         }
+
                     }
                     unsafeWindow.document.getElementById("tn_1").innerHTML = myhtml02;
 
