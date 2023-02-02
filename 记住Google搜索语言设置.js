@@ -49,6 +49,28 @@
 
         if(url2 != null){
             setTimeout(function() {
+                var myhtml = unsafeWindow.document.getElementById("tn_1").innerHTML;
+                var myhtml02 = myhtml;
+                var regex01 = /<a href="\/search?\S{0,}/g;
+                var myhtml2 = myhtml.match(regex01);
+                for (var myurlsub in myhtml2)
+                {
+                    var myurl01 = myhtml2[myurlsub];
+                    var regex02 = /lr=.*?&|lr=\S{0,}(?<!&)$/;
+                    var myurltest = myurl01.match(regex02);
+                    if (myurltest == null){
+                        //alert(myurl02);
+                        var regex03 = /"$/;
+                        var myurl03 = myurl01.replace(regex03, "&lr=\"");
+                        //alert(myurl03);
+                        myhtml02 = myhtml02.replace(myurl01,myurl03);
+
+                    }
+                }
+                unsafeWindow.document.getElementById("tn_1").innerHTML = myhtml02;
+
+
+
                 var resetLanguage = document.createElement('a');
                 resetLanguage.href = "#";
                 resetLanguage.innerHTML = '重置语言';
@@ -64,6 +86,8 @@
                 });
 
                 unsafeWindow.document.getElementById("tn_1").appendChild(resetLanguage);
+
+
             }, 500);
         }
     }
