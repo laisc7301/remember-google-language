@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      1.1
+// @version      1.2
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -38,7 +38,9 @@
     var regex = /lr=.*?&|lr=\S{0,}(?<!&)$/;
     var url2 = url.match(regex);
     if(url2 != null){
-        GM_setValue("googleLanguage", url2);
+        var regex11 = /&$/;
+        var url3 = url2.toString().replace(regex11, "");
+        GM_setValue("googleLanguage", url3);
     }else if(GM_getValue("googleLanguage", "none")!="none"){
         unsafeWindow.location.href = unsafeWindow.location.href + '&' + GM_getValue("googleLanguage", "none");
     }
