@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      1.4
+// @version      2.0
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -31,6 +31,7 @@
     GM_addStyle(css);
 
     var url = unsafeWindow.location.href;
+    var url2 = null;
     //url="https://www.google.com/search?q=tensorflow&lr=lang_zh-CN|lang_zh-TW&newwin";
 
     //url="https://www.google.com/search?q=tensorflow&lr=&";
@@ -49,7 +50,7 @@
 
 
         var regex = /lr=.*?&|lr=\S{0,}(?<!&)$/;
-        var url2 = url.match(regex);
+        url2 = url.match(regex);
         if(url2 != null){
             var regex11 = /&$/;
             var url3 = url2.toString().replace(regex11, "");
@@ -63,7 +64,8 @@
 
             if(url2 != null){
                 setTimeout(function() {
-                    var myhtml = unsafeWindow.document.getElementById("tn_1").innerHTML;
+                    var myobj = unsafeWindow.document.getElementById("tn_1");
+                    var myhtml = myobj.innerHTML;
                     var myhtml02 = myhtml;
                     var regex01 = /href="\/search\?.*?">/g;
                     var myhtml2 = myhtml.match(regex01);
@@ -85,7 +87,7 @@
                         }
 
                     }
-                    unsafeWindow.document.getElementById("tn_1").innerHTML = myhtml02;
+                    myobj.innerHTML = myhtml02;
 
 
 
@@ -103,7 +105,7 @@
 
                     });
 
-                    unsafeWindow.document.getElementById("tn_1").appendChild(resetLanguage);
+                    myobj.appendChild(resetLanguage);
 
 
                 }, 500);
