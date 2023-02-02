@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      1.0
+// @version      1.1
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -35,7 +35,6 @@
 
     //url="https://www.google.com/search?q=tensorflow&lr=&";
 
-
     var regex = /lr=.*?&|lr=\S{0,}(?<!&)$/;
     var url2 = url.match(regex);
     if(url2 != null){
@@ -51,7 +50,7 @@
             setTimeout(function() {
                 var myhtml = unsafeWindow.document.getElementById("tn_1").innerHTML;
                 var myhtml02 = myhtml;
-                var regex01 = /<a href="\/search?\S{0,}/g;
+                var regex01 = /href="\/search\?.*?">/g;
                 var myhtml2 = myhtml.match(regex01);
                 for (var myurlsub in myhtml2)
                 {
@@ -59,12 +58,9 @@
                     var regex02 = /lr=.*?&|lr=\S{0,}(?<!&)$/;
                     var myurltest = myurl01.match(regex02);
                     if (myurltest == null){
-                        //alert(myurl02);
-                        var regex03 = /"$/;
-                        var myurl03 = myurl01.replace(regex03, "&lr=\"");
-                        //alert(myurl03);
+                        var regex03 = /">$/;
+                        var myurl03 = myurl01.replace(regex03, "&lr=\">");
                         myhtml02 = myhtml02.replace(myurl01,myurl03);
-
                     }
                 }
                 unsafeWindow.document.getElementById("tn_1").innerHTML = myhtml02;
