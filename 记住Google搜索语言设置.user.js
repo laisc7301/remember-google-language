@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      2.1
+// @version      2.2
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -60,6 +60,31 @@
         }
 
         window.onload=function(){
+
+
+
+            var myobj2 = unsafeWindow.document.getElementById("hdtb-tls").parentElement;
+            var myhtml11 = myobj2.innerHTML;
+
+            var myClassName = myobj2.lastElementChild.className;
+
+            myhtml11 = myhtml11 + `&nbsp;&nbsp;&nbsp;&nbsp;<div class="${myClassName}" id="languageToChinese">中文结果</div>`;
+            myobj2.innerHTML = myhtml11;
+            var myobj3 = unsafeWindow.document.getElementById("languageToChinese");
+
+            myobj3.addEventListener('click', function() {
+
+                var url22 = unsafeWindow.location.href;
+                var regex2 = /&lr=.*?&$|lr=.*?&|&lr=\S{0,}(?<!&)$/;
+                var url23 = url22.replace(regex2, "");
+                url23 = url23 + "&lr=lang_zh-CN|lang_zh-TW";
+                unsafeWindow.location.href = url23;
+            });
+
+
+
+
+
 
 
             if(url2 != null){
