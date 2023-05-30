@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      2.2
+// @version      2.3
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -11,7 +11,7 @@
 // @grant        GM_deleteValue
 // @grant        GM_addStyle
 // @run-at       document-start
-// @homepage     https://laisc7301.blogspot.com/
+// @homepage     https://laisc7301.github.io/blog/
 // @license      Apache License 2.0
 // ==/UserScript==
 
@@ -46,9 +46,6 @@
 
     }else{
 
-
-
-
         var regex = /lr=.*?&|lr=\S{0,}(?<!&)$/;
         url2 = url.match(regex);
         if(url2 != null){
@@ -60,8 +57,6 @@
         }
 
         window.onload=function(){
-
-
 
             var myobj2 = unsafeWindow.document.getElementById("hdtb-tls").parentElement;
             var myhtml11 = myobj2.innerHTML;
@@ -80,11 +75,6 @@
                 url23 = url23 + "&lr=lang_zh-CN|lang_zh-TW";
                 unsafeWindow.location.href = url23;
             });
-
-
-
-
-
 
 
             if(url2 != null){
