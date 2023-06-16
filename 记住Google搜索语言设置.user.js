@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      2.4
+// @version      2.5
 // @description  记住Google搜索语言设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -21,6 +21,7 @@
 
     //url="https://www.google.com/search?q=tensorflow&lr=lang_zh-CN|lang_zh-TW&newwin";
     //url="https://www.google.com/search?q=tensorflow&lr=&";
+    //url="https://www.google.com/search?q=tensorflow";
 
     //---------------------------------------1------------------------------------------------
     //第一部分：检测语言设置，保存语言设置，应用设置
@@ -61,6 +62,22 @@
             clean1.href += "&lr=";
             clearInterval(waitload);
         };
+        //alert(123);
+
+        var url21 = unsafeWindow.location.href;
+        var regex21 = /&lr=\S{0,}?&|&lr=\S{0,}?$|\?lr=\S{0,}?&|\?lr=\S{0,}/;
+        var url22 = url21.match(regex21);//获取url中的语言设置
+        if(url22==null){
+            clearInterval(waitload);
+        }else{
+            var regex22 = /&|\?/g;
+            var url23 = url22.toString().replace(regex22,"");
+            if(url23=="lr="){
+                clearInterval(waitload);
+            }
+        }
+
+
 
     }, 100);
 
