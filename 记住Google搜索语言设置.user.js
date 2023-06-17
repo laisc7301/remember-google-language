@@ -2,7 +2,7 @@
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
 // @version      2.5
-// @description  自动记住Google搜索语言设置，不用每次设置语言
+// @description  自动记住Google搜索的结果语言的设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
 // @grant        unsafeWindow
