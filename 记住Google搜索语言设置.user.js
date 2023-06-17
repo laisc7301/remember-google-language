@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         记住Google搜索语言设置
 // @namespace    https://github.com/laisc7301/remember-google-language
-// @version      2.5
+// @version      2.6
 // @description  自动记住Google搜索的结果语言的设置，不用每次设置语言
 // @author       睿虎
 // @match        https://www.google.com/search*
@@ -83,6 +83,45 @@
 
 
 
+    //--------------------3-----------------------
+    //第三部分：设置【不限语言】按钮的链接
+    var myelement00 = null;
+
+    var waitload2 = setInterval(function() {
+
+
+        var myelement = document.getElementsByClassName("YpcDnf");
+        for(let i=0; i<myelement.length;i++){
+            let myelement2 = myelement[i].children;
+            for(let i2=0; i2<myelement2.length;i2++){
+                if(myelement2[i2].innerHTML=="不限语言"){
+                    //alert(myelement2[i2].innerHTML);
+                    myelement00 = myelement2[i2];
+                }
+            }
+        }
+        if(myelement00!=null){
+            myelement00.href += "&lr=";
+            clearInterval(waitload2);
+        };
+        //alert(123);
+
+
+        var url31 = unsafeWindow.location.href;
+        var regex31 = /&lr=\S{0,}?&|&lr=\S{0,}?$|\?lr=\S{0,}?&|\?lr=\S{0,}/;
+        var url32 = url31.match(regex31);//获取url中的语言设置
+        if(url32==null){
+            clearInterval(waitload2);
+        }else{
+            var regex32 = /&|\?/g;
+            var url33 = url32.toString().replace(regex32,"");
+            if(url33=="lr="){
+                clearInterval(waitload2);
+            }
+        }
+
+
+    }, 100);
 
 
 })();
